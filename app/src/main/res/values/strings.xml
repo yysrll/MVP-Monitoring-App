@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MVVM Monitoring</string>
+    <string name="app_name">MVP Monitoring</string>
     <string name="app_name_splashscreen">Student \nMonitoring App</string>
     <string name="login">Masuk</string>
     <string name="nip">NIP</string>

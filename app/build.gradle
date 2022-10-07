@@ -10,7 +10,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.yusril.mvvmmonitoring"
+        applicationId "com.yusril.mvpmonitoring"
         minSdk 21
         targetSdk 32
         versionCode 1
@@ -41,7 +41,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-    namespace 'com.yusril.mvvmmonitoring'
+    namespace 'com.yusril.mvpmonitoring'
 }
 
 dependencies {

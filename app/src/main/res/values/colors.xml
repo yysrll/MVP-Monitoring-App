@@ -8,10 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="primary_200">#62D5FF</color>
-    <color name="primary_300">#33BFF2</color>
-    <color name="primary_500">#00AEEE</color>
-    <color name="primary_700">#33BFF2</color>
+    <color name="primary_200">#FFC4AD</color>
+    <color name="primary_300">#FF9D84</color>
+    <color name="primary_500">#FF3A33</color>
+    <color name="primary_700">#B7192F</color>
 
     <color name="secondary_200">#FFB0AD</color>
     <color name="secondary_300">#FF848B</color>
