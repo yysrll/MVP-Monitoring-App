@@ -53,14 +53,14 @@ class GradeFragment : Fragment(), DetailContract.View {
         token = activity?.intent?.getStringExtra(EXTRA_TOKEN).toString()
 
         presenter.setView(this)
-        presenter.init(index)
+        presenter.init()
+        if (index == 1) presenter.onGetSemester(token)
         presenter.onGetStudyResult(
             token,
             student.nim,
             semesterCode,
             index
         )
-        presenter.onGetSemester(token)
     }
 
     override fun initRecyclerView() {
