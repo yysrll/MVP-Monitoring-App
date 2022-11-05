@@ -21,7 +21,6 @@ class MainPresenter @Inject constructor(
     }
 
     override fun onGetLecturer(token: String) {
-        Log.d("MainPresenter", token)
         view.showProgress(true)
         CoroutineScope(Dispatchers.IO).launch {
             val lecturer = repository.getCurrentLecturer()

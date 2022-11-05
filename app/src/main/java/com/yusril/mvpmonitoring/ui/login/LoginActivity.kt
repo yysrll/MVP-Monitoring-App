@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import com.google.android.material.snackbar.Snackbar
@@ -23,6 +24,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val startTime = System.currentTimeMillis()
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -30,7 +32,6 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         supportActionBar?.hide()
 
         presenter.setView(this)
-        presenter.init()
 
         binding.btnLogin.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
@@ -40,6 +41,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
                 )
             }
         }
+        Log.d("LoginActivity Time: ", "execution time ${System.currentTimeMillis() - startTime} ms")
     }
 
     override fun showProgress(isLoading: Boolean) {

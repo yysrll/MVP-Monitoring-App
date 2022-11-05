@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yusril.mvpmonitoring.core.domain.model.Student
 import com.yusril.mvpmonitoring.core.presentation.SectionsPagerAdapter
@@ -19,6 +20,7 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val startTime = System.currentTimeMillis()
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -36,6 +38,7 @@ class DetailActivity : AppCompatActivity() {
         binding.detailStudentGpa.text = "IPK ${student.gpa}"
 
         setupPagerAdapter()
+        Log.d("DetailActivity Time: ", "execution time ${System.currentTimeMillis() - startTime} ms")
     }
 
     private fun setupPagerAdapter() {

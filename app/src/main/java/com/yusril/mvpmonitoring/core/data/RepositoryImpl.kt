@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -92,7 +93,6 @@ class RepositoryImpl @Inject constructor(
             if (response.isSuccessful) {
                 if (responseBody?.access_token!!.isNotEmpty()) {
                     local.setToken(responseBody.access_token)
-                    Log.d("RepositoryImpl", "token api: ${responseBody.access_token}")
                     Resource.success("Login successfully")
                 } else {
                     Resource.empty()

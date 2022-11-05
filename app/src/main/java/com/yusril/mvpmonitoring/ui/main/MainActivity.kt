@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val startTime = System.currentTimeMillis()
         binding = ActivityMainBinding.inflate(layoutInflater)
         studentListBinding = StudentListBinding.bind(binding.root)
         setContentView(binding.root)
@@ -57,6 +59,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter.onGetLecturer(token)
 
         initRecyclerView()
+
+        Log.d("MainActivity Time: ", "execution time ${System.currentTimeMillis() - startTime} ms")
     }
 
     override fun initRecyclerView() {

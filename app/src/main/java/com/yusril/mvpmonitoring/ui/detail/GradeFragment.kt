@@ -32,6 +32,7 @@ class GradeFragment : Fragment(), DetailContract.View {
     private lateinit var student: Student
     private lateinit var token: String
     private lateinit var subjectAdapter: SubjectAdapter
+    private var startTime: Long = 0L
     private var index: Int = 0
     private var semesterCode: String? = null
     private var semesterItems: List<Semester> = listOf()
@@ -40,7 +41,7 @@ class GradeFragment : Fragment(), DetailContract.View {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
+        startTime = System.currentTimeMillis()
         binding = FragmentGradeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -61,6 +62,8 @@ class GradeFragment : Fragment(), DetailContract.View {
             semesterCode,
             index
         )
+
+        Log.d("Fragment $index Time: ", "execution time ${System.currentTimeMillis() - startTime} ms")
     }
 
     override fun initRecyclerView() {
@@ -106,7 +109,6 @@ class GradeFragment : Fragment(), DetailContract.View {
         if (index == 1) {
             binding.menuSemester.apply {
                 setOnItemClickListener { _, _, position, _ ->
-                    Log.d(TAG, "onClick position: $position")
                     semesterCode = semesterItems[position].kode
                     presenter.onGetStudyResult(token, student.nim, semesterCode, index)
                 }
@@ -132,7 +134,6 @@ class GradeFragment : Fragment(), DetailContract.View {
         val semesterString = semesters.map {
             "Semester " + it.jenis + " " + it.tahun_ajaran
         }
-        Log.d("$TAG ${TAB_TITLES[0]}", "Semester: $semesterString")
         val myAdapter = ArrayAdapter(
             requireContext(),
             R.layout.semester_list_item,
@@ -140,13 +141,11 @@ class GradeFragment : Fragment(), DetailContract.View {
         )
 
         semesterCode = semesters[0].kode
-        Log.d(TAG, "Semester code: $semesterCode")
 
         binding.menuSemester.apply {
             setAdapter(myAdapter)
             setText(semesterString[0], false)
             setOnItemClickListener { _, _, position, _ ->
-                Log.d(TAG, "onClick position: $position")
                 semesterCode = semesterItems[position].kode
                 presenter.onGetStudyResult(token, student.nim, semesterCode, index)
             }

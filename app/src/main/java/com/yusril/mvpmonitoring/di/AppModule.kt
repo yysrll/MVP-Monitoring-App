@@ -54,7 +54,7 @@ object AppModule {
     fun provideRepository(api: MonitoringApi, local: PreferenceDataSource): MainRepository = RepositoryImpl(api, local)
 
 
-    @Singleton
+//    @Singleton
     @Provides
     fun provideMainPresenter(repository: MainRepository) : MainPresenter = MainPresenter(repository)
 

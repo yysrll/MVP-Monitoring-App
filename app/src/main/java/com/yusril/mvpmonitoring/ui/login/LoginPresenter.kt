@@ -1,10 +1,10 @@
 package com.yusril.mvpmonitoring.ui.login
 
-import android.util.Log
 import com.yusril.mvpmonitoring.core.domain.repository.MainRepository
 import com.yusril.mvpmonitoring.core.vo.Status
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -18,9 +18,6 @@ class LoginPresenter @Inject constructor(
 
     fun setView(view: LoginContract.View) {
         this.view = view
-    }
-
-    fun init() {
     }
 
     override fun onGetToken() {
@@ -40,19 +37,17 @@ class LoginPresenter @Inject constructor(
             repository.login(nidn, password)
         }
         job.join()
-        val profile = repository.getProfile(token)
-        withContext(Dispatchers.Main) {
-            when (profile.status) {
-                Status.LOADING -> {
-                    view.showProgress(true)
+        repository.getProfile(token).also {
+            withContext(Dispatchers.Main) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        view.toMain(token)
+                    }
+                    Status.EMPTY -> view.showErrorSnackBar("token is Empty, try again!")
+                    else -> it.message?.let { view.showErrorSnackBar(it) }
                 }
-                Status.SUCCESS -> {
-                    view.toMain(token)
-                }
-                Status.EMPTY -> view.showErrorSnackBar("token is Empty, try again!")
-                Status.ERROR -> profile.message?.let { view.showErrorSnackBar(it) }
+                view.showProgress(false)
             }
-            view.showProgress(false)
         }
     }
 }

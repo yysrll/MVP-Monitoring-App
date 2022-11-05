@@ -7,9 +7,8 @@ import com.yusril.mvpmonitoring.core.domain.repository.MainRepository
 import com.yusril.mvpmonitoring.utils.Constant
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SplashScreenPresenter @Inject constructor(
@@ -23,16 +22,15 @@ class SplashScreenPresenter @Inject constructor(
     }
 
     override fun onCheckLogin() {
-        Log.d("SplashScreenPres", "onCheck")
         Handler(Looper.getMainLooper()).postDelayed({
             CoroutineScope(Dispatchers.IO).launch {
-                repository.getToken().collect { token ->
-                    if (token == "") {
-                        view.toLogin()
-                    } else {
-                        view.toMain(token)
-                    }
+                val token = repository.getToken().first()
+                if (token == "") {
+                    view.toLogin()
+                } else {
+                    view.toMain(token)
                 }
+
             }
         }, Constant.SPLASH_SCREEN_DURATION_IN_MILLIS)
     }
